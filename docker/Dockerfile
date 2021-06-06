@@ -22,13 +22,16 @@ ADD data /work/data
 # for normal use?
 # firebase login --no-localhost 
 
+# ignore below - local project should not need this
 # for CICD use
 # firebase login:ci --no-localhost
 # and create a '.firebase_token' file that looks like
 # export FIREBASE_TOKEN=1//ZZZZ....hhhh
 
 RUN echo 'export PS1="FB-local [\w] \\$ "' >> /root/.bashrc
-RUN echo 'source /work/.firebase_token' >> /root/.bashrc
+
+# should not need real project permissions token
+#RUN echo 'source /work/.firebase_token' >> /root/.bashrc
 
 #CMD bash
 CMD cd data && firebase emulators:start
