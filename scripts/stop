@@ -1,0 +1,4 @@
+#!/bin/bash
+TOP=$(dirname $(dirname ${BASH_SOURCE}))
+cd $TOP
+docker compose --project-directory . -f docker/docker-compose.yml down --remove-orphans

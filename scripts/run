@@ -1,0 +1,11 @@
+#!/bin/bash
+TOP=$(dirname $(dirname ${BASH_SOURCE}))
+cd $TOP
+./scripts/stop
+docker compose --project-directory . -f docker/docker-compose.yml build fblocal
+docker compose --project-directory . -f docker/docker-compose.yml \
+        run \
+		--rm \
+		--service-ports \
+		fblocal \
+		"$@"
