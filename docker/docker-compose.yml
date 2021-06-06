@@ -6,7 +6,9 @@ services:
             dockerfile: docker/Dockerfile
         image: fblocal
         ports: 
+            # https://firebase.google.com/docs/emulator-suite/install_and_configure#port_configuration
             - 9099:9099 # Authentication
+            - 4000:4000 # Emulator UI
         volumes: 
             - .:/work
             - "/var/run/docker.sock:/var/run/docker.sock"
