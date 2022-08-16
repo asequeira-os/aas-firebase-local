@@ -2,25 +2,14 @@ FROM ubuntu:22.04
 RUN apt-get update
 
 RUN apt install -y curl
-# without tzdata install, nodejs prompts for geographic region
-# RUN apt install -y tzdata  wget apt-transport-https curl gnupg
-# RUN apt install -y lsof git
-
-# # two seem to be required for nodejs?
-# RUN apt-get update
-# RUN apt-get update
-
-# RUN apt-get install -y nodejs npm
-
-# RUN apt-get install -y openjdk-11-jdk-headless
-
-# RUN npm install -g firebase-tools
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 RUN . ~/.nvm/nvm.sh && nvm install 16.16
 RUN . ~/.nvm/nvm.sh && nvm use node
+
 RUN apt-get install -y openjdk-17-jdk
+
 RUN . ~/.nvm/nvm.sh && npm install -g firebase-tools
 
 RUN mkdir /work
