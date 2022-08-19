@@ -9,18 +9,12 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
+      - name: Git checkout
+        uses: actions/checkout@v1
       - name: Create Pull Request
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { repo, owner } = context.repo;
-            const result = await github.rest.pulls.create({
-              title: 'auto PR',
-              owner,
-              repo,
-              head: '${{ github.ref_name }}',
-              base: 'main',
-              body: [
-                'auto-generated',
-              ].join('\n')
-            });
+        run: |
+          gh pr create -H ${GITHUB_REF_NAME} -B main \
+          --title "auto PR for ${GITHUB_REF_NAME}" \
+          --body 'Created by Github action in auto-pr.yaml' || true
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
