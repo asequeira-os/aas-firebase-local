@@ -1,0 +1,20 @@
+name: create pull request on commits
+
+on:
+  push:
+    branches:
+      - aas/*
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v1
+      - name: Create Pull Request
+        run: |
+          gh pr create -H ${GITHUB_REF_NAME} -B main \
+          --title "auto PR for ${GITHUB_REF_NAME}" \
+          --body 'Created by Github action in auto-pr.yaml' || true
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
