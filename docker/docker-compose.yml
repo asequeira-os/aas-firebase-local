@@ -8,6 +8,7 @@ services:
         ports: 
             # https://firebase.google.com/docs/emulator-suite/install_and_configure#port_configuration
             - 9099:9099 # Authentication
+            - 8080:8080 # firestore
             - 4000:4000 # Emulator UI
         volumes: 
             - .:/work

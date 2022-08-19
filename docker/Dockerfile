@@ -1,19 +1,16 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 RUN apt-get update
 
-# without tzdata install, nodejs prompts for geographic region
-RUN apt install -y tzdata  wget apt-transport-https curl gnupg
-RUN apt install -y lsof git
+RUN apt install -y curl
 
-# two seem to be required for nodejs?
-RUN apt-get update
-RUN apt-get update
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-RUN apt-get install -y nodejs npm
+RUN . ~/.nvm/nvm.sh && nvm install 16.16
+RUN . ~/.nvm/nvm.sh && nvm use node
 
-RUN apt-get install -y openjdk-11-jdk-headless
+RUN apt-get install -y openjdk-17-jdk
 
-RUN npm install -g firebase-tools
+RUN . ~/.nvm/nvm.sh && npm install -g firebase-tools
 
 RUN mkdir /work
 WORKDIR /work
@@ -33,8 +30,8 @@ RUN echo 'export PS1="FB-local [\w] \\$ "' >> /root/.bashrc
 # should not need real project permissions token
 #RUN echo 'source /work/.firebase_token' >> /root/.bashrc
 
-#CMD bash
-CMD cd data && firebase emulators:start
+#CMD . ~/.nvm/nvm.sh && bash
+CMD . ~/.nvm/nvm.sh && cd data && firebase emulators:start
 
 # notes on how I created this
 # mkdir data && cd data
