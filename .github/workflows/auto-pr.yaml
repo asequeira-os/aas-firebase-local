@@ -1,0 +1,26 @@
+name: create pull request on commits
+
+on:
+  push:
+    branches:
+      - aas/*
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { repo, owner } = context.repo;
+            const result = await github.rest.pulls.create({
+              title: 'auto PR',
+              owner,
+              repo,
+              head: '${{ github.ref_name }}',
+              base: 'main',
+              body: [
+                'auto-generated',
+              ].join('\n')
+            });
