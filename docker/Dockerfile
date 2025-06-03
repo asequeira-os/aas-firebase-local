@@ -1,4 +1,4 @@
-FROM ubuntu:24.10
+FROM debian:bookworm-slim
 RUN apt-get update
 
 RUN apt install -y curl
