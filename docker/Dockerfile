@@ -1,11 +1,11 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.10@sha256:aadf9a3f5eda81295050d13dabe851b26a67597e424a908f25a63f589dfed48f
 RUN apt-get update
 
 RUN apt install -y curl
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
-RUN . ~/.nvm/nvm.sh && nvm install 16.16
+RUN . ~/.nvm/nvm.sh && nvm install 22.16
 RUN . ~/.nvm/nvm.sh && nvm use node
 
 RUN apt-get install -y openjdk-17-jdk
@@ -30,7 +30,7 @@ RUN echo 'export PS1="FB-local [\w] \\$ "' >> /root/.bashrc
 # should not need real project permissions token
 #RUN echo 'source /work/.firebase_token' >> /root/.bashrc
 
-#CMD . ~/.nvm/nvm.sh && bash
+# CMD . ~/.nvm/nvm.sh && bash
 CMD . ~/.nvm/nvm.sh && cd data && firebase emulators:start
 
 # notes on how I created this
