@@ -1,4 +1,4 @@
-FROM ubuntu:24.10@sha256:aadf9a3f5eda81295050d13dabe851b26a67597e424a908f25a63f589dfed48f
+FROM ubuntu:24.10
 RUN apt-get update
 
 RUN apt install -y curl
